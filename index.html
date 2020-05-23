@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Banner</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,700&display=swap" rel="stylesheet">
+
+	<style>
+		body{
+			margin:0;
+			font-family: 'Open Sans', sans-serif;
+		}
+		#banner{
+			width:100vw;
+			height:100vh;
+			position:relative;
+			background:#ffffff;
+			overflow:hidden;
+
+ -webkit-perspective: 500px;
+ perspective: 500px;
+
+		}
+		.back-layer, .front-layer, .inner-layer{
+			position:absolute;
+			width:100%;
+			height:100%;
+			left:0px;
+			top:0px;
+
+ -webkit-transform-style: preserve-3d;
+ -ms-transform-style: preserve-3d;
+ transform-style: preserve-3d;
+		}
+		.object{
+			
+			position:absolute;
+			left:50%;
+			margin-left:-60px;
+			top:50%;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			margin-top:-60px;
+			
+		}
+		.object img{
+			display:block;
+		}
+		div#banner-text {
+    
+     max-width: 440px; 
+    margin: auto;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+div#banner-text h2{
+	font-weight:400;
+	font-size:50px;
+	margin-bottom:0;
+	color:#1A1818;
+}
+div#banner-text h2 em{
+	font-weight:700;
+	margin-right:5px;
+}
+div#banner-text p{
+	font-size:17px;
+	color:#666666;
+}
+#cursor{
+
+	width:20px;
+	height:20px;
+	border-radius:50%;
+	pointer-events:none;
+	background:black;
+	transition: -webkit-transform 100ms;
+	-webkit-transition: -webkit-transform 100ms;
+}
+</style>
+</head>
+<body>
+	
+
+<div id="banner">
+
+	<div class="front-layer">
+		<div class="inner-layer">
+		<div class="object pos-1" data-text="Text 1"><img src="1.svg"/></div>
+		<div class="object pos-2" data-text="Text 2"><img src="2.svg"/></div>
+		<div class="object pos-3" data-text="Text 3"><img src="3.svg"/></div>
+		<div class="object pos-4" data-text="Text 4"><img src="4.svg"/></div>
+		<div class="object pos-5" data-text="Text 5"><img src="5.svg"/></div>
+		</div>
+	</div>
+	<div id="banner-text"></div>
+	<div id="cursor"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+<script>
+	var bannerText = document.querySelector('#banner-text');	
+	var banner = document.querySelector('#banner');
+	anime({
+	  targets: '.pos-1',
+	  left:'5%',
+	  top:"20%",
+	  duration: 1500,
+	  easing: 'easeOutExpo'
+	})
+	anime({
+	  targets: '.pos-2',
+	  left: "75%",	  
+	  top:"0%",
+	  duration: 1500,
+	  easing: 'easeOutExpo'
+	})
+	anime({
+	  targets: '.pos-3',
+	  left:"40%",	  
+	  duration: 1500,
+	  easing: 'easeOutExpo'
+	})
+	anime({
+	  targets: '.pos-4',
+	 left:'5%',
+	  top:"70%",
+	  translateY:0,
+	  easing: 'easeOutExpo'
+	})
+	anime({
+	  targets: '.pos-5',  
+	  top:"70%",
+	  left:"70%",
+	  duration: 1500,
+	  easing: 'easeOutExpo'
+	});
+	banner.addEventListener('mousemove', function(e){
+	anime({
+		  targets: '#cursor',
+		  translateX: e.clientX-10,
+		  translateY: e.clientY-10,
+		  easing: 'easeOutExpo'
+
+
+		});
+	anime({
+		  targets: '.inner-layer',
+		  translateX: window.outerWidth/2.2-e.clientX-200,
+		  translateY: window.outerHeight/2.2-e.clientY,
+		  easing: 'easeOutExpo',
+		  
+
+		});
+}, false);
+	
+	var animationPos1 = anime({
+		  targets: '.front-layer',
+		  rotateY: -10, 
+		  perspective: 200,
+		  scale:1.2,
+		  autoplay: false,
+		  easing: 'easeOutExpo',
+		});
+	var animationPos2 = anime({
+		  targets: '.front-layer',
+		  rotateY: 15, 
+		  perspective: 200,
+		  scale:1.2,
+		  autoplay: false,
+		  easing: 'easeOutExpo'
+		});
+	var animationPos3 = anime({
+		  targets: '.front-layer',
+		  rotateY: -15, 
+		  perspective: 200,
+		  scale:1.2,
+		  autoplay: false,
+		  easing: 'easeOutExpo'
+		});
+	var animationPos4 = anime({
+		  targets: '.front-layer',
+		  rotateY: 15, 
+		  perspective: 200,
+		  scale:1.2,
+		  autoplay: false,
+		  easing: 'easeOutExpo'
+		});
+	var animationPos5 = anime({
+		  targets: '.front-layer',
+		  rotateX: 5, 
+		  perspective: 200,
+		  scale:1.2,
+		  autoplay: false,
+		  easing: 'easeOutExpo'
+		});
+function enterButtonPos1() {
+	//banner.style.backgroundColor = "#999999";
+	 bannerText.innerHTML = "<h2><em>Esri</em>Partnership</h2><p>Esri is an industry leader in GIS and we are proud partners with Esri.</p>";
+
+  if (animationPos1.reversed) animationPos1.reverse();
+  animationPos1.play();
+}
+
+function leaveButtonPos1() {
+  bannerText.innerHTML = "";
+ // banner.style.backgroundColor = "#eeeeee";
+  if (!animationPos1.reversed) animationPos1.reverse();
+  animationPos1.play();
+}
+function enterButtonPos2() {
+	 bannerText.innerHTML = "<h2>Let's <em>build cities</em> together</h2><p>As City Planners, we are passionate about solving your Planning challenges through the right use of GIS technology.</p>";
+
+  if (animationPos2.reversed) animationPos2.reverse();
+  animationPos2.play();
+}
+
+function leaveButtonPos2() {
+  bannerText.innerHTML = "";
+  if (!animationPos2.reversed) animationPos2.reverse();
+  animationPos2.play();
+}
+
+function enterButtonPos3() {
+	 bannerText.innerHTML = "<h2>GIS Simplified for <em>planners</em> by <em>planners</em></h2><p>ViewPro is a workforce of City Planners driven by the need for efficient functioning of cities, an objective we achieve by empowering Cities and Local Government with use GIS technology.</p>";
+
+  if (animationPos3.reversed) animationPos3.reverse();
+  animationPos3.play();
+}
+
+function leaveButtonPos3() {
+  bannerText.innerHTML = "";
+  if (!animationPos3.reversed) animationPos3.reverse();
+  animationPos3.play();
+}
+function enterButtonPos4() {
+	 bannerText.innerHTML = "<h2><em>One-stop</em> decision making</h2><p>ViewPro tools enable easy cross-exchange of data among all functions of local.</p>";
+
+  if (animationPos4.reversed) animationPos4.reverse();
+  animationPos4.play();
+}
+
+function leaveButtonPos4() {
+  bannerText.innerHTML = "";
+  if (!animationPos4.reversed) animationPos4.reverse();
+  animationPos4.play();
+}
+function enterButtonPos5() {
+	 bannerText.innerHTML = "<h2>Let's keep it <em>simple</em></h2><p>Technology is meant to simplify our tasks and not to overwhelm us.</p>";
+
+  if (animationPos5.reversed) animationPos5.reverse();
+  animationPos5.play();
+}
+
+function leaveButtonPos5() {
+  bannerText.innerHTML = "";
+  if (!animationPos5.reversed) animationPos5.reverse();
+  animationPos5.play();
+}
+document.querySelector('.pos-1').addEventListener('mouseenter',enterButtonPos1, false);
+document.querySelector('.pos-1').addEventListener('mouseleave', leaveButtonPos1, false);
+document.querySelector('.pos-2').addEventListener('mouseenter',enterButtonPos2, false);
+document.querySelector('.pos-2').addEventListener('mouseleave', leaveButtonPos2, false);
+document.querySelector('.pos-3').addEventListener('mouseenter',enterButtonPos3, false);
+document.querySelector('.pos-3').addEventListener('mouseleave', leaveButtonPos3, false);
+document.querySelector('.pos-4').addEventListener('mouseenter',enterButtonPos4, false);
+document.querySelector('.pos-4').addEventListener('mouseleave', leaveButtonPos4, false);
+document.querySelector('.pos-5').addEventListener('mouseenter',enterButtonPos5, false);
+document.querySelector('.pos-5').addEventListener('mouseleave', leaveButtonPos5, false);
+
+</script>
+</body>
+</html>
